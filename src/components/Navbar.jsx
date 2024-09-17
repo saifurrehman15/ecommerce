@@ -92,14 +92,17 @@ function AppNavbar() {
               <img style={{ width: 120 }} src={logo} alt="Logo" />
             </Navbar.Brand>
             {screen.width < 778 ? (
-              <Badge count={totalQuantity}>
-                <AppButton
-                  icon={<ShoppingCartOutlined />}
-                  className={"h-10 rounded-full w-10 "}
-                  path={"/carts"}
-                  onClick={handleClose}
-                />
-              </Badge>
+              <div className="flex gap-1">
+                <UserProfileCard content={content} />
+                <Badge count={totalQuantity}>
+                  <AppButton
+                    icon={<ShoppingCartOutlined />}
+                    className={"h-10 rounded-full w-10 "}
+                    path={"/carts"}
+                    onClick={handleClose}
+                  />
+                </Badge>
+              </div>
             ) : (
               ""
             )}
@@ -165,7 +168,6 @@ function AppNavbar() {
                       onClick={handleClose}
                     />
                   </Badge>
-
                   <UserProfileCard content={content} />
                   <AppButton
                     icon={theme === "light" ? <MoonFilled /> : <SunFilled />}
