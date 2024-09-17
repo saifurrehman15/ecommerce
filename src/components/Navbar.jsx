@@ -1,0 +1,189 @@
+import React, { useContext, useEffect, useState } from "react";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import Offcanvas from "react-bootstrap/Offcanvas";
+import "bootstrap/dist/css/bootstrap.min.css";
+import logo from "../assets/logo.png";
+import { Link } from "react-router-dom";
+import AppButton from "./Button";
+import { auth, onAuthStateChanged, signOut } from "../utils/firebase";
+import { LogoutOutlined, UserOutlined } from "@ant-design/icons";
+import { Badge } from "antd";
+import {
+  HomeOutlined,
+  SettingOutlined,
+  ProductOutlined,
+  ContactsOutlined,
+  SunFilled,
+  MoonFilled,
+  EyeOutlined,
+  ShoppingCartOutlined,
+} from "@ant-design/icons";
+import UserProfileCard from "./UserProdile"; // Fixed import typo
+import { ThemeContext } from "../Context/ThemeContext";
+import { cart } from "../Context/addtoCart";
+function AppNavbar() {
+  const themeColor = useContext(ThemeContext);
+  const { theme, setTheme } = themeColor;
+  const carts = useContext(cart);
+  const { cartItem } = carts;
+
+  let totalQuantity = cartItem.reduce((accumulator, num) => {
+    return accumulator + num.quantity;
+  }, 0);
+
+  const [userData, setUserData] = useState("");
+  const [showOffcanvas, setShowOffcanvas] = useState(false);
+  const handleClose = () => setShowOffcanvas(false);
+  const handleShow = () => setShowOffcanvas(true);
+
+  const logOut = () => {
+    signOut(auth)
+      .then(() => {
+        console.log("Logged out");
+        handleClose();
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+  // useEffect(() => {
+  //   onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       setUserData(user);
+  //       console.log("user found", user);
+  //     } else {
+  //       console.log("User not found");
+  //     }
+  //   });
+  // }, []);
+
+  // Content for UserProfileCard
+  const content = (
+    <div className="text-center">
+      <Link to={"/profile"}>
+        <EyeOutlined className="me-1" />
+        View Profile
+      </Link>
+      <div className="flex justify-center">
+        <AppButton
+          name="Log out"
+          onClick={logOut}
+          className="logOutbtn"
+          icon={<LogoutOutlined />}
+        />
+      </div>
+    </div>
+  );
+
+  return (
+    <>
+      {["md"].map((expand) => (
+        <Navbar
+          key={expand}
+          expand={expand}
+          className={`navbarMain px-16 ${
+            theme === "light" ? "bg-white" : "bg-black"
+          }`}
+        >
+          <Container>
+            <Navbar.Brand href="/">
+              <img style={{ width: 120 }} src={logo} alt="Logo" />
+            </Navbar.Brand>
+            {screen.width < 778 ? (
+              <Badge count={totalQuantity}>
+                <AppButton
+                  icon={<ShoppingCartOutlined />}
+                  className={"h-10 rounded-full w-10 "}
+                  path={"/carts"}
+                  onClick={handleClose}
+                />
+              </Badge>
+            ) : (
+              ""
+            )}
+            <Navbar.Toggle
+              aria-controls={`offcanvasNavbar-expand-${expand}`}
+              onClick={handleShow}
+            />
+            <Navbar.Offcanvas
+              show={showOffcanvas}
+              onHide={handleClose}
+              id={`offcanvasNavbar-expand-${expand}`}
+              aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
+              placement="end"
+            >
+              <Offcanvas.Header closeButton>
+                <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
+                  <img style={{ width: 120 }} src={logo} alt="Logo" />
+                </Offcanvas.Title>
+              </Offcanvas.Header>
+              <Offcanvas.Body>
+                <Nav className="justify-content-center flex-grow-1">
+                  <ul className="menu">
+                    <li>
+                      <Link to="/home" onClick={handleClose}>
+                        <span className="NavbarIcons">
+                          <HomeOutlined />
+                        </span>
+                        Home
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/about" onClick={handleClose}>
+                        <span className="NavbarIcons">
+                          <SettingOutlined />
+                        </span>
+                        About
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/Product" onClick={handleClose}>
+                        <span className="NavbarIcons">
+                          <ProductOutlined />
+                        </span>
+                        Products
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/contact" onClick={handleClose}>
+                        <span className="NavbarIcons">
+                          <ContactsOutlined />
+                        </span>
+                        Contact
+                      </Link>
+                    </li>
+                  </ul>
+                </Nav>
+                <div className="flex gap-3 items-center">
+                  <Badge count={totalQuantity}>
+                    <AppButton
+                      icon={<ShoppingCartOutlined />}
+                      className={"h-10 rounded-full w-10 "}
+                      path={"/carts"}
+                      onClick={handleClose}
+                    />
+                  </Badge>
+
+                  <UserProfileCard content={content} />
+                  <AppButton
+                    icon={theme === "light" ? <MoonFilled /> : <SunFilled />}
+                    className={"h-10 rounded-full w-10"}
+                    onClick={() => {
+                      theme === "light" ? setTheme("dark") : setTheme("light");
+
+                      handleClose();
+                    }}
+                  />
+                </div>
+              </Offcanvas.Body>
+            </Navbar.Offcanvas>
+          </Container>
+        </Navbar>
+      ))}
+    </>
+  );
+}
+
+export default AppNavbar;

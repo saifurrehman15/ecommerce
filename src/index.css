@@ -1,0 +1,190 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0%;
+}
+
+.icons {
+  color: rgb(0, 0, 0);
+  font-size: 1.2rem !important;
+}
+
+.collapeBtn {
+  color: white;
+  display: flex;
+  width: 90% !important;
+  margin-top: 10px;
+}
+.collapeBtn:hover {
+  color: rgb(167, 167, 167) !important;
+}
+.tableData{
+  height: 150px;
+  text-align: center;
+  border-top: 1px solid gray;
+  width: calc(60%/3);
+}
+
+table > tr > th {
+  text-align: center;
+}
+.contentDiv {
+  display: flex !important;
+  align-items: center;
+}
+
+.imgDiv {
+  border-radius: 20px;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+}
+
+.coverImg {
+  object-fit: contain;
+}
+
+.btn1 {
+  background-color: black;
+  font-weight: 500;
+  color: white;
+  padding: 20px;
+}
+.btn2 {
+  padding: 20px;
+  margin: 0px 10px;
+}
+
+.productImage {
+  object-fit: contain;
+  padding: 5px;
+  border-radius: 10px;
+  /* background-color: rgb(236, 32, 158); */
+}
+
+.imageCard {
+  border-radius: 10px;
+  object-fit: contain;
+  /* background-color: rgb(226, 111, 182); */
+}
+
+.productDetaiBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.loader {
+  display: block;
+  margin: auto;
+  font-size: 3.5rem;
+  font-weight: 600;
+}
+
+.appSpinner {
+  margin: 300px auto;
+  height: 20vh;
+}
+
+.notFoundIcon {
+  margin: auto !important;
+}
+
+.aboutCard {
+  border-radius: 10px;
+  background-color: rgb(12, 10, 11);
+  color: rgb(235, 235, 235);
+  width: calc(100% / 3);
+}
+.productCards {
+  /* background-color: rgb(226, 111, 182); */
+  border: 1px solid gray;
+}
+.cart-page::-webkit-scrollbar{display: none;}
+h1 {
+  font-size: 25px;
+  font-weight: bold;
+}
+.message-box {
+  width: 400px;
+}
+.menu {
+  display: flex;
+}
+.menu li {
+  cursor: pointer;
+  display: flex;
+  padding: 2px 10px;
+  margin: 0px 10px;
+  font-size: 1rem;
+  color: rgb(128, 128, 128) !important;
+  font-weight: 700;
+}
+
+.navbarMain {
+  box-shadow: 0px 0px 2px rgb(240, 240, 240);
+  z-index: 11;
+
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.navbar-toggler {
+  outline: none;
+  padding: 0px;
+  border: none;
+  color: transparent;
+  font-size: 18px;
+}
+
+.signupForm {
+  text-align: center;
+  margin: 100px auto;
+}
+
+.routerLoader {
+  display: flex;
+  justify-content: center;
+  height: 80vh;
+  align-items: center;
+}
+
+.logOutBtn {
+  color: white;
+  background-color: black;
+  outline: none;
+  border: none;
+}
+.logOutbtn:hover {
+  color: white !important;
+  background-color: rgb(77, 77, 77) !important;
+}
+
+.NavbarIcons {
+  display: flex;
+  justify-content: center;
+  font-size: 18px;
+  color: rgb(138, 130, 135);
+}
+
+.profile {
+  border-radius: 50%;
+  width: 41px;
+  height: 40px;
+}
+
+.footerMain {
+  box-shadow: 0px 0px 2px rgb(240, 240, 240);
+}
+
+.divLogOut {
+  display: flex;
+  justify-content: center;
+}
+
+.redborder {
+  border: 2px solid red;
+}

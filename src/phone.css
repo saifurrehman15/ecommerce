@@ -1,0 +1,84 @@
+@media only screen and (max-width: 767px) {
+  .message-box{width: 100%;}
+  .contentDiv {
+    padding: 0px !important;
+  }
+  .home {
+    padding: 0px !important;
+    margin: 0% !important;
+    width: 100% !important;
+  }
+  .home button {
+    margin: 10px !important;
+  }
+  .home p {
+    padding: 10px 0px !important;
+    text-align: center;
+    margin: auto !important;
+  }
+  .aboutCard {
+    width: 100% !important;
+    border-right: none;
+    border-left: none;
+    margin: 0px 10px;
+  }
+  .navbarMain {
+    padding: 10px !important;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .contentDiv {
+    padding: 0px !important;
+  }
+  .home {
+    width: 100% !important;
+  }
+  .home button {
+    padding: 0px 10px !important;
+    margin: 4px !important;
+  }
+  .home p {
+    padding: 10px 0px !important;
+    text-align: center;
+    margin: auto !important;
+  }
+
+  .icons {
+    font-size: 1rem !important;
+  }
+
+  .collapeBtn {
+    display: none;
+  }
+  .contact {
+    margin: 20px auto !important;
+    padding: 10px 0px;
+    width: 100% !important;
+  }
+  .contactpage {
+    padding: 10px !important;
+    margin: 0% !important;
+    width: 100%;
+  }
+  .menu {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+
+    padding: 1px !important;
+    width: 90% !important;
+  }
+  .menu>li{
+    display: flex;
+  }
+  .slider {
+    margin: 0px;
+  }
+  .tag {
+    width: 100%;
+  }
+  .navbarMain {
+    padding: 10px !important;
+  }
+}
