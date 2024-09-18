@@ -76,7 +76,7 @@ function AppNavbar() {
       </div>
     </div>
   );
-
+  const devices = screen.width < 992;
   return (
     <>
       {["md"].map((expand) => (
@@ -127,48 +127,90 @@ function AppNavbar() {
                   <ul className="menu">
                     <li>
                       <Link to="/home" onClick={handleClose}>
-                        <span className="NavbarIcons">
-                          <HomeOutlined />
-                        </span>
-                        Home
+                        {devices ? (
+                          <span className="NavbarIcons flex items-center gap-2 ">
+                            <HomeOutlined />
+                            Home
+                          </span>
+                        ) : (
+                          <>
+                            <span className="NavbarIcons">
+                              <HomeOutlined />
+                            </span>
+                            Home
+                          </>
+                        )}
                       </Link>
                     </li>
                     <li>
                       <Link to="/about" onClick={handleClose}>
-                        <span className="NavbarIcons">
-                          <SettingOutlined />
-                        </span>
-                        About
+                        {devices ? (
+                          <span className="NavbarIcons flex items-center gap-2 mt-2">
+                            <SettingOutlined />
+                            About
+                          </span>
+                        ) : (
+                          <>
+                            <span className="NavbarIcons">
+                              <SettingOutlined />
+                            </span>
+                            About
+                          </>
+                        )}
                       </Link>
                     </li>
                     <li>
                       <Link to="/Product" onClick={handleClose}>
-                        <span className="NavbarIcons">
-                          <ProductOutlined />
-                        </span>
-                        Products
+                        {devices ? (
+                          <span className="NavbarIcons flex items-center gap-2 mt-2">
+                            <ProductOutlined />
+                            Products
+                          </span>
+                        ) : (
+                          <>
+                            <span className="NavbarIcons">
+                              <ProductOutlined />
+                            </span>
+                            Products
+                          </>
+                        )}
                       </Link>
                     </li>
                     <li>
                       <Link to="/contact" onClick={handleClose}>
-                        <span className="NavbarIcons">
-                          <ContactsOutlined />
-                        </span>
-                        Contact
+                        {devices ? (
+                          <span className="NavbarIcons flex items-center gap-2 mt-2">
+                            <SettingOutlined />
+                            Contact
+                          </span>
+                        ) : (
+                          <>
+                            <span className="NavbarIcons">
+                              <SettingOutlined />
+                            </span>
+                            Contact
+                          </>
+                        )}
                       </Link>
                     </li>
                   </ul>
                 </Nav>
-                <div className="flex gap-3 items-center">
-                  <Badge count={totalQuantity}>
-                    <AppButton
-                      icon={<ShoppingCartOutlined />}
-                      className={"h-10 rounded-full w-10 "}
-                      path={"/carts"}
-                      onClick={handleClose}
-                    />
-                  </Badge>
-                  <UserProfileCard content={content} />
+                <div className=" flex gap-1 items-center">
+                  {devices ? (
+                    ""
+                  ) : (
+                    <div className="flex gap-1">
+                      <UserProfileCard content={content} />
+                      <Badge count={totalQuantity}>
+                        <AppButton
+                          icon={<ShoppingCartOutlined />}
+                          className={"h-10 rounded-full w-10 "}
+                          path={"/carts"}
+                          onClick={handleClose}
+                        />
+                      </Badge>
+                    </div>
+                  )}
                   <AppButton
                     icon={theme === "light" ? <MoonFilled /> : <SunFilled />}
                     className={"h-10 rounded-full w-10"}
@@ -178,6 +220,20 @@ function AppNavbar() {
                       handleClose();
                     }}
                   />
+                  <span
+                    className={`font-bold cursor-pointer ${
+                      theme === "light"
+                        ? "text-black"
+                        : "text-white" && !devices
+                    }`}
+                    onClick={() => {
+                      theme === "light" ? setTheme("dark") : setTheme("light");
+
+                      handleClose();
+                    }}
+                  >
+                    {theme}
+                  </span>
                 </div>
               </Offcanvas.Body>
             </Navbar.Offcanvas>

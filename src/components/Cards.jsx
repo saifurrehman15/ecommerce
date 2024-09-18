@@ -11,7 +11,7 @@ function AppCards({ productsArr, loader, notFound }) {
     ) : (
       <section className="container mx-auto mt-10 px-4">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-gray-800 mb-4">Our Exclusive Products</h1>
+          <h1 className="text-4xl font-extrabold  mb-4">Our Exclusive Products</h1>
           <p className="text-lg text-gray-500 xl:w-1/2 lg:w-2/3 mx-auto mb-8">
             "Discover our handpicked selection of premium products, combining elegance with functionality."
           </p>

@@ -20,11 +20,11 @@ body {
 .collapeBtn:hover {
   color: rgb(167, 167, 167) !important;
 }
-.tableData{
+.tableData {
   height: 150px;
   text-align: center;
   border-top: 1px solid gray;
-  width: calc(60%/3);
+  width: calc(60% / 3);
 }
 
 table > tr > th {
@@ -102,7 +102,9 @@ table > tr > th {
   /* background-color: rgb(226, 111, 182); */
   border: 1px solid gray;
 }
-.cart-page::-webkit-scrollbar{display: none;}
+.cart-page::-webkit-scrollbar {
+  display: none;
+}
 h1 {
   font-size: 25px;
   font-weight: bold;
@@ -112,6 +114,8 @@ h1 {
 }
 .menu {
   display: flex;
+
+  align-items: center;
 }
 .menu li {
   cursor: pointer;

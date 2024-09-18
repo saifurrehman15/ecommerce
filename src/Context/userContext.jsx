@@ -1,6 +1,7 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import { auth, setDoc, doc, db, getDoc } from "../utils/firebase";
+import { useNavigate } from "react-router-dom";
 
 export const userInfo = createContext();
 
@@ -14,7 +15,7 @@ function UserContextProvider({ children }) {
         const docSnap = await getDoc(docRef);
         const data = docSnap.data();
         setUser({ isLogin: true, ...data });
-
+        useNavigate("/");
         console.log("User found", userData);
       } else {
         setUser({ isLogin: false, email: "" });

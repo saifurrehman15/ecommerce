@@ -18,7 +18,6 @@ const AppSignUp = () => {
         value.password
       );
       const user = userCredential.user;
-      alert(user.uid);
 
       // Create user document in Firestore
       const docRef = doc(db, "users", user.uid);
