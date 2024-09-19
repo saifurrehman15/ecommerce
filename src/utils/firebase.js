@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { setDoc, getFirestore, doc, getDoc } from "firebase/firestore";
@@ -28,7 +29,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-
+const storage = getStorage(app);
 const analytics = getAnalytics(app);
 
 export {
@@ -41,4 +42,8 @@ export {
   setDoc,
   doc,
   getDoc,
+  storage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
 };

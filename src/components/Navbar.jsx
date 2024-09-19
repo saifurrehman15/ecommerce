@@ -8,7 +8,6 @@ import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
 import AppButton from "./Button";
 import { auth, onAuthStateChanged, signOut } from "../utils/firebase";
-import { LogoutOutlined, UserOutlined } from "@ant-design/icons";
 import { Badge } from "antd";
 import {
   HomeOutlined,
@@ -18,11 +17,14 @@ import {
   SunFilled,
   MoonFilled,
   EyeOutlined,
+  LogoutOutlined,
   ShoppingCartOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import UserProfileCard from "./UserProdile"; // Fixed import typo
 import { ThemeContext } from "../Context/ThemeContext";
 import { cart } from "../Context/addtoCart";
+import { userInfo } from "../Context/userContext";
 function AppNavbar() {
   const themeColor = useContext(ThemeContext);
   const { theme, setTheme } = themeColor;
@@ -33,7 +35,9 @@ function AppNavbar() {
     return accumulator + num.quantity;
   }, 0);
 
-  const [userData, setUserData] = useState("");
+  const { userData, setUserData } = useContext(userInfo);
+  const { avatar } = userData;
+
   const [showOffcanvas, setShowOffcanvas] = useState(false);
   const handleClose = () => setShowOffcanvas(false);
   const handleShow = () => setShowOffcanvas(true);
@@ -61,20 +65,7 @@ function AppNavbar() {
 
   // Content for UserProfileCard
   const content = (
-    <div className="text-center">
-      <Link to={"/profile"}>
-        <EyeOutlined className="me-1" />
-        View Profile
-      </Link>
-      <div className="flex justify-center">
-        <AppButton
-          name="Log out"
-          onClick={logOut}
-          className="logOutbtn"
-          icon={<LogoutOutlined />}
-        />
-      </div>
-    </div>
+    <img src={avatar} alt="" className="h-full w-full rounded-full" />
   );
   const devices = screen.width < 992;
   return (
@@ -93,7 +84,13 @@ function AppNavbar() {
             </Navbar.Brand>
             {screen.width < 778 ? (
               <div className="flex gap-1">
-                <UserProfileCard content={content} />
+                <Link to={"/profile"}>
+                  <button
+                    className={"h-10 rounded-full w-10 border border-gray-500"}
+                  >
+                    {avatar ? content : <UserOutlined />}
+                  </button>
+                </Link>{" "}
                 <Badge count={totalQuantity}>
                   <AppButton
                     icon={<ShoppingCartOutlined />}
@@ -200,7 +197,16 @@ function AppNavbar() {
                     ""
                   ) : (
                     <div className="flex gap-1">
-                      <UserProfileCard content={content} />
+                      <Link to={"/profile"}>
+                        <button
+                          className={
+                            "h-10 rounded-full w-10 border border-gray-500"
+                          }
+                        >
+                          {avatar ? content : <UserOutlined />}
+                        </button>
+                      </Link>
+
                       <Badge count={totalQuantity}>
                         <AppButton
                           icon={<ShoppingCartOutlined />}

@@ -7,22 +7,47 @@ import {
   db,
   setDoc,
   doc,
+  storage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
 } from "../utils/firebase";
+import { updateDoc } from "firebase/firestore";
 
 function ProfileEdit() {
   const { userData, setUser } = useContext(userInfo);
-  const { email, users, uid, phoneNumbers, bio } = userData;
+  const { email, users, uid, phoneNumbers, bio, avatar } = userData;
   const [Bio, setBio] = useState("");
   const [nameOfUser, setUserName] = useState("");
+  const [image, setImage] = useState("");
   const [phone, setPhone] = useState("");
+  const [avatars, setAvatar] = useState("");
   const [loader, setLoading] = useState(false);
+  console.log(image);
 
+  const addImage = () => {
+    const storageRef = ref(storage, `users/${uid}`);
+    uploadBytes(storageRef, image)
+      .then(() => {
+        console.log("Image uploaded successfully");
+      })
+      .catch((error) => {
+        console.error("Error uploading image: ", error);
+      });
+    getDownloadURL(storageRef).then(async (url) => {
+      // Insert url into an <img> tag to "download"
+      console.log(url);
+      const docRef = doc(db, "users", uid);
+      await updateDoc(docRef, { avatar: url });
+      setUser({ ...userData, avatar: url });
+    });
+  };
   const updateProfile = async () => {
     setLoading(true);
     const docRef = doc(db, "users", uid);
     console.log(docRef);
     const objUsers = {
-      users:nameOfUser,
+      users: nameOfUser,
       email,
       uid,
       phoneNumbers: phone,
@@ -30,6 +55,7 @@ function ProfileEdit() {
     };
     await setDoc(docRef, objUsers);
     setUser({ ...userData, ...objUsers });
+    setImage("")
     setLoading(false);
   };
   useEffect(() => {
@@ -38,10 +64,10 @@ function ProfileEdit() {
     }
   }, [users]);
   useEffect(() => {
-    if (users) {
-      setUserName(users);
+    if (avatar) {
+      setAvatar(avatar);
     }
-  }, [users]);
+  }, [avatar]);
 
   useEffect(() => {
     if (phoneNumbers) {
@@ -55,7 +81,7 @@ function ProfileEdit() {
   }, [bio]);
 
   return (
-    <div className="mx-auto border-1 border-gray-200 p-3 mt-[100px]  w-86 rounded">
+    <div className="mx-auto border-1 border-gray-200 p-3 mt-[100px]  w-96 rounded">
       <div className="relative mb-4">
         <label htmlFor="text" className="leading-7 text-sm ">
           User Name
@@ -114,12 +140,29 @@ function ProfileEdit() {
           className="w-full  rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
         ></textarea>
       </div>
+      <div className="relative mb-4">
+        <label
+          htmlFor="image"
+          className="h-28 overflow-hidden w-28 cursor-pointer flex items-center justify-center text-center border-1 border-dashed border-blue-300 rounded"
+        >
+          {image ? image.name : "Upload Image"}
+          <input
+            type="file"
+            hidden
+            id="image"
+            onChange={(e) => {
+              setImage(e.target.files[0]);
+            }}
+          />
+        </label>
+      </div>
       <button
         className={
           "bg-blue-500 w-full h-10 rounded text-white hover:bg-green-400"
         }
         onClick={() => {
           updateProfile();
+          addImage();
         }}
       >
         {loader ? "loading..." : "Update Profile"}
