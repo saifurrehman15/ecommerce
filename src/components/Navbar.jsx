@@ -86,7 +86,7 @@ function AppNavbar() {
               <div className="flex gap-1">
                 <Link to={"/profile"}>
                   <button
-                    className={"h-10 rounded-full w-10 border border-gray-500"}
+                    className={"h-10 rounded-full w-10 border border-gray-500 cursor-pointer"}
                   >
                     {avatar ? content : <UserOutlined />}
                   </button>
@@ -192,15 +192,15 @@ function AppNavbar() {
                     </li>
                   </ul>
                 </Nav>
-                <div className=" flex gap-1 items-center">
+                <div className=" flex gap-2 items-center">
                   {devices ? (
                     ""
                   ) : (
-                    <div className="flex gap-1">
+                    <div className="flex gap-2">
                       <Link to={"/profile"}>
                         <button
                           className={
-                            "h-10 rounded-full w-10 border border-gray-500"
+                            "h-10 rounded-full w-10 border border-gray-500 cursor-pointer"
                           }
                         >
                           {avatar ? content : <UserOutlined />}

@@ -75,7 +75,7 @@ function ItemPage() {
                       <h2 className={`font-medium text-lg ${textColor}`}>
                         {data.title}
                       </h2>
-                      <p className={`text-gray-600 ${subTextColor}`}>
+                      <p className={` ${subTextColor}`}>
                         ${data.price.toFixed(2)}
                       </p>
                       <div className="flex items-center space-x-2 mt-2">
