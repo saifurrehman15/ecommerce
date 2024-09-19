@@ -230,7 +230,7 @@ function AppNavbar() {
                     className={`font-bold cursor-pointer ${
                       theme === "light"
                         ? "text-black"
-                        : "text-white" && !devices
+                        : devices || "text-white"
                     }`}
                     onClick={() => {
                       theme === "light" ? setTheme("dark") : setTheme("light");
